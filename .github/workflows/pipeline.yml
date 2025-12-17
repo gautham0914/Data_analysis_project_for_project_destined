@@ -2,7 +2,7 @@ name: Refresh analytics outputs
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -29,37 +29,47 @@ jobs:
       - name: Run ETL (load DuckDB)
         run: |
           python etl/load_duckdb.py
+
       - name: Debug DB + tables
         run: |
           echo "DuckDB files found:"
           find . -maxdepth 3 -name "*.duckdb" -print
 
-           python - <<'EOF'
-           import duckdb, glob
-           for db in glob.glob("**/*.duckdb", recursive=True):
-           print("\n---", db, "---")
-           con = duckdb.connect(db)
-          try:
-            print(con.execute("SHOW TABLES").fetchall())
-          finally:
-            con.close()
+          python - <<'EOF'
+          import duckdb, glob
+
+          dbs = glob.glob("**/*.duckdb", recursive=True)
+          print("DB files:", dbs)
+
+          for db in dbs:
+              print("\n---", db, "---")
+              con = duckdb.connect(db)
+              try:
+                  print("tables:", con.execute("SHOW TABLES").fetchall())
+              finally:
+                  con.close()
           EOF
-   
 
       - name: Run SQL analysis
         run: |
-          python - <<EOF
+          python - <<'EOF'
           import duckdb
+
           con = duckdb.connect("realestate.duckdb")
+          print("tables in realestate.duckdb:", con.execute("SHOW TABLES").fetchall())
+
           with open("sql/analysis.sql", "r") as f:
               con.execute(f.read())
+
           con.close()
+          print("SQL analysis completed.")
           EOF
 
       - name: Commit refreshed results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add results/
+          git add results/ || true
           git commit -m "Auto-refresh analytics results" || echo "No changes to commit"
           git push
+
