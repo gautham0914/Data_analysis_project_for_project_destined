@@ -17,6 +17,12 @@ venv/
 .vscode/
 .idea/
 
+# Node/Next
+node_modules/
+.next/
+out/
+.turbo/
+
 # Jupyter
 .ipynb_checkpoints/
 
