@@ -39,10 +39,10 @@ p {
   inset: 0;
   background-image: url('/images/city-skyline.jpg');
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center bottom;
   background-size: cover;
-  opacity: 0.10; /* keep text readable */
-  filter: blur(2px) saturate(115%);
+  opacity: 0.12; /* slightly more visible but subtle */
+  filter: blur(1px) saturate(120%) contrast(105%);
   z-index: 0;
 }
 
@@ -52,10 +52,10 @@ p {
   inset: 0;
   background-image: url('/images/buildings.jpg');
   background-repeat: no-repeat;
-  background-position: 70% 30%;
+  background-position: 60% 20%;
   background-size: cover;
-  opacity: 0.07;
-  filter: blur(2px) saturate(110%);
+  opacity: 0.10;
+  filter: blur(1.5px) saturate(115%);
   z-index: 0;
 }
 
@@ -65,9 +65,9 @@ p {
   /* dark overlay to maintain contrast over photos */
   background: linear-gradient(
     180deg,
-    rgba(2, 6, 23, 0.85) 0%,
-    rgba(2, 6, 23, 0.88) 60%,
-    rgba(2, 6, 23, 0.92) 100%
+    rgba(2, 6, 23, 0.78) 0%,
+    rgba(2, 6, 23, 0.82) 60%,
+    rgba(2, 6, 23, 0.88) 100%
   );
   z-index: 1; /* above images, below content */
   pointer-events: none;
