@@ -29,6 +29,8 @@ jobs:
       - name: Run ETL (load DuckDB)
         run: |
           python etl/load_duckdb.py
+          ls -la
+          ls -la data || true
 
       - name: Debug DB + tables
         run: |
@@ -37,7 +39,6 @@ jobs:
 
           python - <<'EOF'
           import duckdb, glob
-
           dbs = glob.glob("**/*.duckdb", recursive=True)
           print("DB files:", dbs)
 
@@ -68,8 +69,5 @@ jobs:
       - name: Commit refreshed results
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add results/ || true
-          git commit -m "Auto-refresh analytics results" || echo "No changes to commit"
-          git push
+
 
