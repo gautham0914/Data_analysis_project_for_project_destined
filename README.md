@@ -41,6 +41,79 @@ ETL script: `etl/load_duckdb.py`
 - Cleans currency values into numeric
 - Loads tables into DuckDB
 
-Run:
-```bash
-python etl/load_duckdb.py
+## SQL Analysis
+
+SQL analysis is implemented in `sql/analysis.sql` and runs on the normalized DuckDB tables created during the ETL step.
+
+This layer represents the **analytical business logic** of the project, separating raw data ingestion from insights generation.
+
+### Analytical focus
+
+The SQL analysis answers the following questions:
+
+- What are the average home values by state?
+- How have home values changed over the long term (first quarter → latest quarter)?
+- Which states exhibit higher or lower price volatility?
+- How do markets behave quarter-over-quarter (QoQ)?
+- How do year-over-year (YoY) trends differ from short-term movement?
+- Which markets show recent momentum or deceleration?
+- How do value levels and growth rates compare when viewed together?
+
+### Output artifacts
+
+All SQL outputs are exported as structured CSV files into the `results/` directory.
+
+- **Machine-readable outputs:** `results/*.csv`
+- **Human-readable summary:** `results/report.md`
+
+The written report presents:
+- Each analytical question in plain language
+- The resulting tables generated from SQL
+- Clean formatting suitable for non-technical stakeholders
+
+### Data quality & validation
+
+Before generating analytical outputs, the SQL layer enforces validation checks to ensure:
+
+- One record per state per quarter (no duplicate grain)
+- Acceptable null rates in key fact measures
+- Consistent time coverage across regions
+
+If validation fails, downstream result tables are not refreshed.
+
+### Why this SQL layer matters
+
+This approach mirrors production analytics workflows by:
+
+- Separating **raw data** from **analytical logic**
+- Making results easier to audit and explain
+- Enabling safe, automated refreshes
+- Supporting reuse in dashboards, lessons, or case studies
+
+The SQL layer is intentionally designed to be extensible as new metrics, regions, or educational use cases are added.
+
+---
+## Key Insights
+
+This analysis examines how U.S. home values behave over time by looking at **price levels, growth, volatility, and recent momentum together** rather than in isolation.
+
+The key findings are:
+
+- **High home prices are usually structural.**  
+  States with the highest average home values (e.g., Hawaii, California) are expensive because of long-term supply and demand conditions, not because of recent rapid growth.
+
+- **Fast growth often happens in mid-priced markets.**  
+  Many of the fastest-growing states started from moderate price levels, showing that strong appreciation does not require already-expensive housing markets.
+
+- **Average prices hide risk.**  
+  Some states with high or stable average prices still experience large quarter-to-quarter swings, meaning volatility is an important risk signal that averages alone do not show.
+
+- **Recent trends can differ from long-term performance.**  
+  States with strong multi-year growth can show slowing momentum in recent quarters, while other states may show short-term acceleration despite weaker long-term trends.
+
+- **Different metrics answer different questions.**  
+  Quarter-over-quarter growth highlights short-term movement, while year-over-year growth better reflects sustained trends. Using both provides a more responsible view of market behavior.
+
+Together, these insights show that **price, growth, stability, and momentum must be evaluated jointly** to understand housing markets properly.
+
+📄 **Detailed explanations and examples:** [`insights/insights.md`](insights/insights.md)
