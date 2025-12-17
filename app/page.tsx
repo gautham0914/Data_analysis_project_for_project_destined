@@ -182,16 +182,25 @@ export default function Page() {
             </a>
           </div>
         </div>
-        <div className="rounded-2xl border border-slate-800 bg-card/80 shadow-glow p-6 space-y-6">
-          <h2 className="text-xl font-semibold">Project Overview</h2>
-          <ul className="space-y-3 text-slate-300">
-            {overviewItems.map((item) => (
-              <li key={item} className="flex gap-3 items-start">
-                <span className="mt-1 h-2 w-2 rounded-full bg-sky-400" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="space-y-6">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden shadow-glow">
+            <img
+              src="/images/city-skyline.jpg"
+              alt="City skyline contextual image"
+              className="w-full h-56 sm:h-64 lg:h-72 object-cover object-center"
+            />
+          </div>
+          <div className="rounded-2xl border border-slate-800 bg-card/80 shadow-glow p-6 space-y-6">
+            <h2 className="text-xl font-semibold">Project Overview</h2>
+            <ul className="space-y-3 text-slate-300">
+              {overviewItems.map((item) => (
+                <li key={item} className="flex gap-3 items-start">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-sky-400" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
