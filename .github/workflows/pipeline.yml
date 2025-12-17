@@ -29,6 +29,22 @@ jobs:
       - name: Run ETL (load DuckDB)
         run: |
           python etl/load_duckdb.py
+      - name: Debug DB + tables
+        run: |
+          echo "DuckDB files found:"
+          find . -maxdepth 3 -name "*.duckdb" -print
+
+           python - <<'EOF'
+           import duckdb, glob
+           for db in glob.glob("**/*.duckdb", recursive=True):
+           print("\n---", db, "---")
+           con = duckdb.connect(db)
+          try:
+            print(con.execute("SHOW TABLES").fetchall())
+          finally:
+            con.close()
+          EOF
+   
 
       - name: Run SQL analysis
         run: |
