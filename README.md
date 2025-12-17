@@ -151,7 +151,7 @@ This analysis shows that **price, growth, volatility, and momentum must be evalu
 - 📁 **All results (CSV):** [`results/`](results/)
 - 🧠 **SQL logic:** [`sql/analysis.sql`](sql/analysis.sql)
 - ⚙️ **ETL pipeline:** [`etl/load_duckdb.py`](etl/load_duckdb.py)
-- 🔁 **Automation workflow:** [`.github/workflows/pipeline.yml`](.github/workflows/pipeline
+- 🔁 **Automation workflow:** [`.github/workflows/pipeline.yml`](.github/workflows/pipeline.yml)
 
 
 
