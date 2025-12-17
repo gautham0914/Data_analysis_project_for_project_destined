@@ -58,32 +58,32 @@ function loadData(): Dataset {
 }
 
 const overviewItems = [
-  "Dimensional model: dim_region, dim_time, fact_home_values",
-  "ETL: wide-to-long cleaning plus DuckDB load",
-  "SQL analytics: growth, volatility, QoQ, YoY, momentum",
-  "Automation: GitHub Actions refresh outputs on every push"
+  "Data gathered and cleaned with Python",
+  "Organized so state trends are easy to compare",
+  "Key trends calculated with SQL (growth, risk, momentum)",
+  "Results auto-refresh on each update"
 ];
 
 const insights = [
   {
-    title: "Highest-priced states are not always the fastest-growing.",
-    subtitle: "Growth = % change from first available quarter to the latest quarter."
+    title: "Highest-priced states are not always the fastest growing.",
+    subtitle: "Growth = % change from the first available quarter to the latest quarter."
   },
   {
-    title: "Fast growth often comes from mid-priced states, not the top 3.",
-    subtitle: "Compare baseline price rank vs total growth rank."
+    title: "Fast growth often comes from mid-priced states, not the top three.",
+    subtitle: "Compare starting price rank with total growth rank."
   },
   {
-    title: "Averages hide risk — volatility changes which markets look “safe.”",
-    subtitle: "Volatility = standard deviation of quarterly price changes ($)."
+    title: 'Averages can hide risk; volatility changes which markets look "safe".',
+    subtitle: "Volatility = the typical dollar ups and downs each quarter."
   },
   {
-    title: "Recent momentum can contradict the long-term trend.",
-    subtitle: "Momentum = last 2 quarters’ % change; trend = full-period % change."
+    title: "Recent momentum can disagree with the long-term trend.",
+    subtitle: "Momentum = last 2 quarters' % change; trend = full-period % change."
   },
   {
-    title: "QoQ and YoY answer different questions — don’t mix them.",
-    subtitle: "QoQ = short-term movement; YoY = seasonality-aware direction."
+    title: "Quarter-over-quarter and year-over-year answer different questions.",
+    subtitle: "QoQ shows short-term movement; YoY shows seasonality-aware direction."
   }
 ];
 
@@ -149,10 +149,10 @@ export default function Page() {
               Real Estate Data Analytics & Workflow Automation Case Study
             </h1>
             <p className="text-sky-200 font-semibold">
-              Built specifically for Project Destined — SQL + Data Modeling + Automated Refresh
+              Built specifically for Project Destined: Python, SQL, data modeling, and automated refresh
             </p>
             <p className="text-lg text-slate-300">
-              I built this end-to-end for Project Destined to showcase analytics, modeling, SQL, automation, and clear stakeholder reporting across U.S. housing data.
+              I built this end-to-end for Project Destined to showcase Python data work, SQL analysis, automation, and clear stakeholder reporting across U.S. housing data.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-3">
@@ -219,7 +219,7 @@ export default function Page() {
       <section className="space-y-6">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-semibold">Data Highlights</h2>
-          <p className="text-slate-400">Top 10 rows from each analysis output, loaded at build time.</p>
+          <p className="text-slate-400">Top 10 states for each metric. Dollar values show typical home prices; percentages show growth rates.</p>
         </div>
         <div className="grid lg:grid-cols-2 gap-6">
           <DataTable
@@ -230,7 +230,7 @@ export default function Page() {
             columnLabel="$ Avg Home Value"
           />
           <DataTable
-            title="Top Growth (first → latest quarter)"
+            title="Top Growth (first to latest quarter)"
             caption="States with the largest total % increase from the first quarter to the most recent quarter."
             rows={data.topGrowth}
             formatter={formatPercent}
