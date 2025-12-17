@@ -27,12 +27,15 @@ p {
 
 /* Subtle real-estate background wrapper */
 .page-bg {
-  position: relative;
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* sit behind content */
+  pointer-events: none;
 }
 
 .page-bg::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-image: url('/images/city-skyline.jpg');
   background-repeat: no-repeat;
@@ -40,12 +43,12 @@ p {
   background-size: cover;
   opacity: 0.10; /* keep text readable */
   filter: blur(2px) saturate(115%);
-  z-index: -30;
+  z-index: 0;
 }
 
 .page-bg::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-image: url('/images/buildings.jpg');
   background-repeat: no-repeat;
@@ -53,7 +56,7 @@ p {
   background-size: cover;
   opacity: 0.07;
   filter: blur(2px) saturate(110%);
-  z-index: -31;
+  z-index: 0;
 }
 
 .page-overlay {
@@ -66,5 +69,6 @@ p {
     rgba(2, 6, 23, 0.88) 60%,
     rgba(2, 6, 23, 0.92) 100%
   );
-  z-index: -20;
+  z-index: 1; /* above images, below content */
+  pointer-events: none;
 }
