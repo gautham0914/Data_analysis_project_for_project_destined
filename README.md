@@ -158,4 +158,37 @@ This analysis shows that **price, growth, volatility, and momentum must be evalu
 
 
 
+## Frontend (Next.js + Tailwind)
+
+- 🚀 Live site: https://realestate-casestudy.vercel.app
+- 📂 Source (App Router): `app/`
+  - Page: `app/page.tsx` (hero + image card + overview, insights, tables)
+  - Layout + styles: `app/layout.tsx`, `app/globals.css`
+  - CSV loader: `lib/csv.ts` (reads `results/*.csv` at build time)
+  - Background images: `public/images/city-skyline.jpg`, `public/images/buildings.jpg`
+
+What the page shows
+- Hero with Project Destined context + quick links
+- Prominent city skyline image card above Project Overview
+- Clear “Key Insights” with plain-language subtitles
+- Data Highlights tables (Top Avg Value, Top Growth, Volatility, Momentum)
+
+Local development
+```bash
+npm install
+npm run dev
+# build for deploy
+npm run build
+```
+
+Vercel
+- Build command: `npm run build`
+- Output: `.next` (default)
+- No server/API required; static-friendly build reading CSVs from `results/`
+
+
+
+
+
+
 
